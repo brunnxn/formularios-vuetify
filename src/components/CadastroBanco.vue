@@ -40,35 +40,36 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 export default {
   name: "CadastroBanco",
-  data() {
-    return {
-      formValido: false,
-      banco: {
-        numero: "",
-        descricao: "",
-        ativo: false,
-      },
-    };
-  },
-  methods: {
-    salvarBanco() {
-      if (this.$refs.form.validate()) {
-        // Armazena os dados no sessionStorage (em string)
-        sessionStorage.setItem("cadastroBanco", JSON.stringify(this.banco));
+  setup() {
+    const router = useRouter();
+    const form = ref(null);
+    const formValido = ref(false);
 
-        // Opcional: limpar formulário
-        this.banco = {
-          numero: "",
-          descricao: "",
-          ativo: false,
-        };
+    const banco = ref({
+      numero: "",
+      descricao: "",
+      ativo: false,
+    });
 
-        // Mensagem de confirmação (opcional)
+    const salvarBanco = () => {
+      if (form.value?.validate()) {
+        sessionStorage.setItem("cadastroBanco", JSON.stringify(banco.value));
         alert("Banco salvo com sucesso!");
+        router.push("/cadastro-conta");
       }
-    },
+    };
+
+    return {
+      form,
+      formValido,
+      banco,
+      salvarBanco,
+    };
   },
 };
 </script>

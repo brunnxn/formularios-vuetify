@@ -1,11 +1,15 @@
+<!-- src/layouts/default.vue -->
 <template>
-  <v-main>
-    <router-view />
-  </v-main>
-
-  <AppFooter />
+  <v-app>
+    <v-main>
+      <router-view />
+    </v-main>
+    <AppFooter />
+  </v-app>
 </template>
 
-<script setup>
-  //
+<script>
+export default {
+  name: 'DefaultLayout'
+}
 </script>
